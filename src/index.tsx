@@ -1,9 +1,16 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
+import { Provider } from 'mobx-react'
 import 'antd/dist/antd.css'
-import App from './components/App/App'
-import * as serviceWorker from './serviceWorker'
+import { App } from './components/App/App'
+import { createStore } from './store/createStote'
 
-ReactDOM.render(<App />, document.getElementById('root'))
-
-serviceWorker.unregister()
+const store = {
+  store: createStore('a, b, c'),
+}
+render(
+  <Provider {...store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
