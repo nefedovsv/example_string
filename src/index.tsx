@@ -6,7 +6,7 @@ import { App } from './components/App/App'
 import { createStore } from './store/createStote'
 
 const store = {
-  store: createStore('a, b, c'),
+  store: createStore('a,b,c'),
 }
 render(
   <Provider {...store}>
