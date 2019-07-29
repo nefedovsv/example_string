@@ -1,7 +1,7 @@
 import { action, computed, observable } from "mobx";
 import { IStore, symbolsData } from "./IStore";
 export class Store implements IStore {
-    validSymbols: string = ''
+    @observable validSymbols: string = ''
     @observable symbolsMap = new Map<string, number>()
 
     @action
@@ -22,14 +22,16 @@ export class Store implements IStore {
     }
     getSymbolMapper(value: string) {
         const mapper: Map<string, number> = new Map<string, number>();
-        const getMap: string[] = this.validSymbols.split(',')
-        getMap.forEach((symbol: string) => {
-            let reg = new RegExp(symbol, 'g');
-            let arrSymbols = value.match(reg);
-            if (arrSymbols) {
-                mapper.set(arrSymbols[0], arrSymbols.length);
-            }
-        });
+        if (this.validSymbols !== '') {
+            const getMap: string[] = this.validSymbols.split(',')
+            getMap.forEach((symbol: string) => {
+                let reg = new RegExp(symbol, 'g');
+                let arrSymbols = value.match(reg);
+                if (arrSymbols) {
+                    mapper.set(arrSymbols[0], arrSymbols.length);
+                }
+            })
+        }
         return mapper
     }
     updateMap(newMap: Map<string, number>): void {
