@@ -33,7 +33,12 @@ export class Store implements IStore {
         return mapper
     }
     updateMap(newMap: Map<string, number>): void {
-            newMap.forEach((value, key) => {
+        this.symbolsMap.forEach((value, key) => {
+            if (!newMap.has(key)) {
+                this.symbolsMap.delete(key);
+            }
+        });
+        newMap.forEach((value, key) => {
             this.symbolsMap.set(key, value);
         });
     }
