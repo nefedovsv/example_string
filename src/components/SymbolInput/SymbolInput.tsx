@@ -1,12 +1,11 @@
 import React, { Component, ChangeEvent } from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { observable } from "mobx";
 import { Input, Icon } from "antd";
 import { IStore } from "../../store/IStore";
 interface SymbolInputProps {
   store: IStore;
 }
-@inject("store")
 @observer
 export class SymbolInput extends Component<SymbolInputProps> {
   @observable
