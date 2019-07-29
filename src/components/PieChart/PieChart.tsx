@@ -22,7 +22,6 @@ export class PieChart extends Component<PieChartProps> {
             key: item.symbol,
             color: getColorByChar(item.symbol)
         }));
-console.log(data)
         return (
             <ReactMinimalPieChart
                 data={data}

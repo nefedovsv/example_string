@@ -7,8 +7,7 @@ export class Store implements IStore {
     @action
     setValue(value: string) {
         const symboMapper: Map<string, number> = this.getSymbolMapper(value);
-        this.symbolsMap = symboMapper
-        console.log(symboMapper)
+        this.updateMap(symboMapper);
     }
     @action
     setValidSymbols(value: string): void {
@@ -23,9 +22,8 @@ export class Store implements IStore {
     }
     getSymbolMapper(value: string) {
         const mapper: Map<string, number> = new Map<string, number>();
-        const getMap = (allowString: string): string[] => allowString.split(',')
-         // eslint-disable-next-line 
-        getMap(this.validSymbols).map((symbol: string) => {
+        const getMap: string[] = this.validSymbols.split(',')
+        getMap.forEach((symbol: string) => {
             let reg = new RegExp(symbol, 'g');
             let arrSymbols = value.match(reg);
             if (arrSymbols) {
@@ -33,5 +31,17 @@ export class Store implements IStore {
             }
         });
         return mapper
+    }
+
+    updateMap(newMap: Map<string, number>): void {
+        this.symbolsMap.forEach((value, key) => {
+            if (!newMap.has(key)) {
+                this.symbolsMap.delete(key);
+            }
+        });
+        newMap.forEach((value, key) => {
+            this.symbolsMap.set(key, value);
+            console.log(this.symbolsMap)
+        });
     }
 } 
